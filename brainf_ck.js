@@ -23,28 +23,24 @@ function brainLuck(code, input){
             ++pointer;
             if(pointer > 2000){
                 pointer = 0;
-                return;
             }
         },
         "<": () => {
             --pointer;
             if(pointer < 0){
                 pointer = 2000;
-                return;
             }
         },
         "+": () => {
             ++memory[pointer];
             if(memory[pointer] > 255){
                 memory[pointer] = 0;
-                return;
             }
         },
         "-": () => {
             --memory[pointer];
             if(memory[pointer] < 0){
                 memory[pointer] = 255;
-                return;
             }
         },
         ".": () => output.push(memory[pointer]),
@@ -93,7 +89,4 @@ function brainLuck(code, input){
 
     return String.fromCharCode.apply(null, output);
 }
-
-
-
-  console.log(brainLuck(',>,<[>[->+>+<<]>>[-<<+>>]<<<-]>>.', String.fromCharCode(8,9)));
+console.log(brainLuck(',>,<[>[->+>+<<]>>[-<<+>>]<<<-]>>.', String.fromCharCode(8,9)));
