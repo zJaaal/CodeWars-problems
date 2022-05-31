@@ -11,6 +11,7 @@
 // [ if the byte at the data pointer is zero, then instead of moving the instruction pointer forward to the next command, jump it forward to the command after the matching ] command.
 // ] if the byte at the data pointer is nonzero, then instead of moving the instruction pointer forward to the next command, jump it back to the command after the matching [ command.
 
+
 function brainLuck(code, input){
     let output = [];
     let pointer = 0;
@@ -19,14 +20,14 @@ function brainLuck(code, input){
     let inputArray = input.split("");
     const instructions ={
         ">": () => {
-            pointer = pointer + 1;
+            ++pointer;
             if(pointer > 2000){
                 pointer = 0;
                 return;
             }
         },
         "<": () => {
-            pointer = pointer - 1;
+            --pointer;
             if(pointer < 0){
                 pointer = 2000;
                 return;
@@ -49,15 +50,39 @@ function brainLuck(code, input){
         ".": () => output.push(memory[pointer]),
         ",": () => memory[pointer] = inputArray.shift().charCodeAt(0),
         "[": () => {
-            if(memory[pointer] == 0){
-                codePointer = code.lastIndexOf("]");
-                return;
+            if(memory[pointer] == 0){ 
+                let brackets = 1;
+                for(let i = codePointer + 1; i < code.length; i++){
+                    if(code[i] == "["){
+                        ++brackets;
+                        continue;
+                    }
+                    if(code[i] == "]"){
+                        --brackets;
+                    }
+                    if(code[i] == "]" && brackets == 0){
+                        codePointer = i;
+                        break;
+                    }
+                }
             }
         },
         "]": () => {
             if(memory[pointer] != 0){
-                codePointer = code.indexOf("[");
-                return;
+                let brackets = 1;
+                for (let i = codePointer - 1; i > 0; i--){
+                    if(code[i] == "]"){
+                        ++brackets;
+                        continue;
+                    }
+                    if(code[i] == "["){
+                        --brackets;
+                    }
+                    if(code[i] == "[" && brackets == 0){
+                        codePointer = i;
+                        break;
+                    }
+                }
             }
         }
     };
@@ -67,7 +92,8 @@ function brainLuck(code, input){
     }
 
     return String.fromCharCode.apply(null, output);
-  }
+}
 
 
-  console.log(brainLuck(',+[-.,+]', 'Codewars'+String.fromCharCode(255)));
+
+  console.log(brainLuck(',>,<[>[->+>+<<]>>[-<<+>>]<<<-]>>.', String.fromCharCode(8,9)));
