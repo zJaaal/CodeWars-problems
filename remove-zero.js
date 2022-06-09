@@ -12,40 +12,18 @@
     
     // the correctly sorted array should be returned.
 
-
-
-    //Not solved
+//Now Solved!
 function removeZeros(array) {
-    let count = 0;
-    for(let i= 0; i < array.length; i++)
-        if(array[i] == 0)
-            ++count;
 
-    let numbersCount = array.length - count;
-    let looseNumbers=0;
-    for(let i=0; i<array.length; i++){
-        if(array[i]==0){
-            for(let j = i; j < array.length - count; j++){
-                let zero = array[j];
-                array[j] = array[j+1];
-                array[j+1] = zero;
-            }
-            --count;
-            --i;
-        }
-        if(count == 0) break;
-    }
-    for(let i= array.length - 1; i > numbersCount; i--){
-        if(array[i]>0){
-            ++looseNumbers;
-        }
-    }
-    for(let i= array.length - 1; i > numbersCount; i--){
-        if(array[i]>0){
-            for(let j = i; j > numbersCount - looseNumbers; j--){
-                let number = array[j];
+    for(let i=1; i<array.length; i++){
+        if((array[i]!== 0 && array[i] !== "0") && 
+           (array[i-1] === 0 || array[i-1] === "0")){
+            for(let j = i; j > 0; j--){
+                let current = array[j];
                 array[j] = array[j-1];
-                array[j-1] = number;
+                array[j-1] = current;
+                if(array[j-2] !== 0 && array[j-2] !== "0")
+                    break;
             }
         }
     }
@@ -54,5 +32,5 @@ function removeZeros(array) {
 }
 
 
-console.log(removeZeros([7, 2, 3, 0, 4, 6, 0, 0, 13, 0, 78, 0, 0, 19, 14]));
-                       //7, 2, 3, 4, 6, 13, 78, 19, 14, 0, 0, 0, 0, 0, 0
+console.log(removeZeros([7, 2, 3, "0", 4, 6, 0, 0, 13, 0, 78, 0, 0, 19, 14]));
+                       //7, 2, 3, 4, 6, 13, 78, 19, 14, "0", 0, 0, 0, 0, 0
