@@ -22,7 +22,7 @@ function VigenèreCipher(key, abc) {
         let abcChar = abc.indexOf(char);
         if(abcChar == -1) return char;
         let encodeChar = abc.indexOf(key[keyChar]);
-        let result = abc.indexOf(char) - encodeChar < 0 -1 ?  abc.indexOf(char) - encodeChar + abc.length:  abc.indexOf(char) - encodeChar;
+        let result = abc.indexOf(char) - encodeChar < -1 ?  abc.indexOf(char) - encodeChar + abc.length:  abc.indexOf(char) - encodeChar;
         return abc[result];
       }).join("");
       
