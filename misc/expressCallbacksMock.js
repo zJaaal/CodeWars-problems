@@ -11,6 +11,7 @@
 // }
 
 function use(res, req) {
+  //Should add validations for arguments
   const [a, b, ...callbacks] = arguments;
 
   //This function always lives in this closure so it will have the reference to the arguments of the HOC function
