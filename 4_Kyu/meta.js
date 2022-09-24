@@ -1,35 +1,57 @@
 // 4 kyu problem Are you Licensed to write JS?
 // https://www.codewars.com/kata/5bb429a97631f02eec00001f
 
-function target(owner = "", renewed = 0) {
-  this.owner = owner;
-  this.renewed = renewed;
+function license(args) {
+  this.owner = args[0];
+  this.renewed = args[1] || 0;
   this.toString = () =>
-    `Licensed to ${this.owner}, renewed ${this.renewed} time(s)`;
+    `JSLicense: Licensed to ${this.owner}, renewed ${this.renewed} time(s)`;
 
   return this;
 }
 
-Object.freeze(target);
-
 let handler = {
   construct(target, args) {
     if (args.length && args[0].trim().length) {
-      return new target(args[0]);
+      return new Proxy(license.bind(null, [args[0]]), handler);
     }
-    return new target(target.owner, ++target.renewed);
+    return new Proxy(
+      license.bind(null, [target().owner, target().renewed + 1]),
+      handler
+    );
+  },
+  get(target, prop) {
+    return target()[prop];
+  },
+  apply() {
+    throw Error("You should create a license using new");
+  },
+  getPrototypeOf() {
+    return Object.getPrototypeOf(new Function());
   },
 };
 
-JSLicense = new Proxy(target, handler); // How to even approach this?
+JSLicense = new Proxy(license, handler); // How to even approach this?
 
 License = new JSLicense("Codewars");
 
-console.log(License.owner);
+anotherLicense = new JSLicense("zJaaal");
 
-// let newLicense = new new new new License()()()();
+newLicense = new new new new new License()()()()();
 
-// console.log(newLicense.renewed);
+newAnotherLicense =
+  new new new new new new new new anotherLicense()()()()()()()();
+
+console.log("License owner: ");
+console.log(newLicense.owner);
+console.log("Renewed times: ");
+console.log(newLicense.renewed);
+console.log("License owner: ");
+console.log(newAnotherLicense.owner);
+console.log("Renewed times: ");
+console.log(newAnotherLicense.renewed);
+
+console.log(Object.getPrototypeOf(License));
 
 // Oh noes! Apparently the JS code camp you're about to apply for is more draconian than ever at their gatekeeping process - they require you to create your own JS license to prove that you're permitted to code in JS.
 
