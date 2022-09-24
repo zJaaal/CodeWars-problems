@@ -6,6 +6,7 @@ function target(owner = "", renewed = 0) {
   this.renewed = renewed;
   this.toString = () =>
     `Licensed to ${this.owner}, renewed ${this.renewed} time(s)`;
+
   return this;
 }
 
