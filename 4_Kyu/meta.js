@@ -1,5 +1,6 @@
 // 4 kyu problem Are you Licensed to write JS?
 // https://www.codewars.com/kata/5bb429a97631f02eec00001f
+// haven't solved it yet but at least I learned about meta programming, this solution pass all the basic cases
 
 function license(args) {
   this.owner = args[0];
