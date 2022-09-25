@@ -4,7 +4,7 @@
 
 function license(args) {
   this.owner = args[0];
-  this.renewed = args[1] || 0;
+  this.renewed = args && args.length > 1 ? args[1] : 0;
   this.toString = () =>
     `JSLicense: Licensed to ${this.owner}, renewed ${this.renewed} time(s)`;
 
@@ -14,10 +14,10 @@ function license(args) {
 let handler = {
   construct(target, args) {
     if (args.length && args[0].trim().length) {
-      return new Proxy(license.bind(null, [args[0]]), handler);
+      return new Proxy(license.bind(target, [args[0]]), handler);
     }
     return new Proxy(
-      license.bind(null, [target().owner, target().renewed + 1]),
+      license.bind(target, [target().owner, target().renewed + 1]),
       handler
     );
   },
@@ -27,8 +27,8 @@ let handler = {
   apply() {
     throw Error("You should create a license using new");
   },
-  getPrototypeOf() {
-    return Object.getPrototypeOf(new Function());
+  getPrototypeOf(target) {
+    return Object.getPrototypeOf(target());
   },
 };
 
@@ -43,6 +43,7 @@ newLicense = new new new new new License()()()()();
 newAnotherLicense =
   new new new new new new new new anotherLicense()()()()()()()();
 
+// console.log(License instanceof JSLicense);
 console.log("License owner: ");
 console.log(newLicense.owner);
 console.log("Renewed times: ");
@@ -52,7 +53,7 @@ console.log(newAnotherLicense.owner);
 console.log("Renewed times: ");
 console.log(newAnotherLicense.renewed);
 
-console.log(Object.getPrototypeOf(License));
+// console.log(License.owner);
 
 // Oh noes! Apparently the JS code camp you're about to apply for is more draconian than ever at their gatekeeping process - they require you to create your own JS license to prove that you're permitted to code in JS.
 
