@@ -31,6 +31,7 @@ function license(args) {
     throw new Error("New licenses should have an owner");
   }
 
+  //return the proxy here
   return this;
 }
 
