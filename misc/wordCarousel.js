@@ -1,3 +1,4 @@
+//The most of this is made on CSS, i just added what i needed on the html with js
 const carouselSection = document.querySelector('.word-carousel>div>div');
 
 carouselSection.innerHTML = `
