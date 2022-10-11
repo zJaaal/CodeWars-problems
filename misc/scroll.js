@@ -1,51 +1,30 @@
-let current = '';
+let red = 255;
+let green = 255;
+let blue = 255;
 
-function isElementOnViewPort(el) {
-  let rect = el.getBoundingClientRect();
-  if (el.id == 'main') {
-    return rect.y <= 100 && rect.y > 0;
-  }
-  return (
-    rect.top <= 0 &&
-    rect.left <= 0 &&
-    rect.bottom <=
-      (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.bottom >= 0 &&
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  );
-}
+let lastScroll = 0;
 
-const anchors = document.querySelectorAll('.elementor-item-anchor');
-const mySections = [];
-const myAnchorsList = Array.from(new Set([{ hash: '#main' }, ...anchors]));
-
-myAnchorsList.forEach((x) => mySections.push(document.querySelector(x.hash)));
+const section = document.querySelector('#sobre-mi');
+section.style.backgroundColor = '#FFFFFF';
 window.addEventListener('scroll', () => {
-  mySections.forEach((x) => {
-    if (isElementOnViewPort(x)) {
-      let myCurrentAnchor = myAnchorsList.find((el) =>
-        el.hash.includes(x.id)
-      ).hash;
+  let currentPos = window.pageYOffset || document.documentElement.scrollTop;
 
-      if (x.id.includes('main')) {
-        anchors.forEach((el) => {
-          if (el && !el.hash.includes(x.id)) {
-            el.style.opacity = '100%';
-          }
-        });
-      } else {
-        document.querySelector(
-          `.elementor-item-anchor[href="#${x.id}"]`
-        ).style.opacity = '1';
-        anchors.forEach((el) => {
-          if (el && !el.hash.includes(x.id)) {
-            el.style.opacity = '0.1';
-          }
-        });
-      }
-      if (myCurrentAnchor != current) {
-        current = myCurrentAnchor;
-      }
+  if (lastScroll > currentPos) {
+    //going up
+    if (red >= 255 || green >= 255 || blue >= 255) {
+      return;
     }
-  });
+    if (section.getBoundingClientRect().y >= 200)
+      section.style.backgroundColor = `rgb(${(red = red + 0.07)}, ${(green =
+        green + 0.07)}, ${(blue = blue + 0.07)})`;
+  } else {
+    //going down
+    if (red <= 248 || green <= 248 || blue <= 248) {
+      return;
+    }
+    if (section.getBoundingClientRect().y <= 500)
+      section.style.backgroundColor = `rgb(${(red = red - 0.07)}, ${(green =
+        green - 0.07)}, ${(blue = blue - 0.07)})`;
+  }
+  lastScroll = currentPos <= 0 ? 0 : currentPos;
 });
