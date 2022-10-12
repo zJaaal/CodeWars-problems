@@ -10,7 +10,7 @@ function isElementOnViewPort(el) {
     return rect.y <= 100 && rect.y > 0;
   }
 
-  //In the page i check like this :
+  //In the page I check like this :
   // rect.bottom <=
   //     (window.innerHeight || document.documentElement.clientHeight ) &&
   //   rect.bottom >= 0
