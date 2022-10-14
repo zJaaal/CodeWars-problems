@@ -1,13 +1,35 @@
-//This way you can make focus to an element that has display none until a click
-
 const button = document.querySelector('.et_pb_menu__search-button');
 button.addEventListener('click', () => {
-  button.blur();
-  console.log(document.activeElement);
   setTimeout(() => {
     const input = document.querySelector('#keyword');
+    const results = document.querySelector('#datafetch');
+    results.innerHTML = '';
+    input.value = '';
     input.setAttribute('tabindex', '0');
     input.focus();
-    console.log(document.activeElement);
-  }, 1);
+    input.onkeyup = null;
+
+    function fetch() {
+      let keyword = jQuery('#keyword').val();
+
+      if (!keyword.trim().length) {
+        jQuery('#datafetch').html('');
+        return;
+      }
+
+      jQuery.ajax({
+        url: 'https://mrc2stg.wpengine.com/wp-admin/admin-ajax.php',
+        type: 'post',
+        data: {
+          action: 'data_fetch',
+          keyword: keyword,
+        },
+        success: function (data) {
+          jQuery('#datafetch').html(data);
+        },
+      });
+    }
+
+    input.addEventListener('keyup', fetch);
+  }, 0);
 });
