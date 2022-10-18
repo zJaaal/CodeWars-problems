@@ -1,13 +1,21 @@
 //The most of this is made on CSS, i just added what i needed on the html with js
-const carouselSection = document.querySelector('.word-carousel>div>div');
+const carouselSection = document.querySelectorAll('.word-carousel>div>div');
 
-carouselSection.innerHTML = `
-<h2>Let's Talk&nbsp;·&nbsp;</h2>
-<h2>Hablemos&nbsp;·&nbsp;</h2>
-<h2>Parlem&nbsp;·&nbsp;</h2>
-<h2>Parlons</h2>
-<h2>&nbsp;·&nbsp;Let's talk&nbsp;·&nbsp;</h2>
-<h2>Hablemos&nbsp;·&nbsp;</h2>
-<h2>Parlem&nbsp;·&nbsp;</h2>
-<h2>Parlons&nbsp;·&nbsp;</h2>
-`;
+[...carouselSection].forEach((section) => {
+  section.innerHTML = `
+	<div class="carousel-container">
+    <div class="carousel">
+      <h2>Let's Talk&nbsp;·&nbsp;</h2>
+      <h2>Hablemos&nbsp;·&nbsp;</h2>
+      <h2>Parlem&nbsp;·&nbsp;</h2>
+      <h2>Parlons</h2>
+    </div>
+    <div class="carousel delay">
+      <h2>Let's Talk&nbsp;·&nbsp;</h2>
+      <h2>Hablemos&nbsp;·&nbsp;</h2>
+      <h2>Parlem&nbsp;·&nbsp;</h2>
+      <h2>Parlons</h2>
+    </div>
+  </div>
+	`;
+});
