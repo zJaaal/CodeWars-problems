@@ -57,14 +57,13 @@ window.addEventListener('scroll', () => {
 
   if (lastScroll > currentPos) {
     //going up
-    //if its already white stop
-    if (red >= 255 || green >= 255 || blue >= 255) {
-      return;
-    }
 
-    //200 is a acceptable position where it can start to change to white
+    //350 is a acceptable position where it can start to change to white
     //0.07 is an acceptable to number so it will be white when out of viewport
-    if (section[0].getBoundingClientRect().y >= 350) {
+    if (
+      section[0].getBoundingClientRect().y >= 350 &&
+      !(red >= 255 || green >= 255 || blue >= 255)
+    ) {
       red += steps;
       blue += steps;
       green += steps;
@@ -74,14 +73,12 @@ window.addEventListener('scroll', () => {
     }
   } else {
     //going down
-    //if its already gray stop
-    if (red <= 248 || green <= 248 || blue <= 248) {
-      return;
-    }
-
     //500 is a acceptable position where it can start to change to gray
     //0.07 is an acceptable to number so it will be gray when its on the viewport
-    if (section[1].getBoundingClientRect().y <= 500) {
+    if (
+      section[1].getBoundingClientRect().y <= 500 &&
+      !(red <= 248 || green <= 248 || blue <= 248)
+    ) {
       red -= steps;
       blue -= steps;
       green -= steps;
@@ -89,6 +86,45 @@ window.addEventListener('scroll', () => {
       section[0].style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
       section[1].style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
     }
-    lastScroll = currentPos <= 0 ? 0 : currentPos; //To control negative values
   }
+  lastScroll = currentPos <= 0 ? 0 : currentPos; //To control negative values
+});
+
+document.body.addEventListener('touchmove', () => {
+  //Get the current position of the viewport on the page
+  let currentPos = window.pageYOffset || document.documentElement.scrollTop;
+
+  if (lastScroll > currentPos) {
+    //going up
+
+    //350 is a acceptable position where it can start to change to white
+    //0.07 is an acceptable to number so it will be white when out of viewport
+    if (
+      section[0].getBoundingClientRect().y >= 350 &&
+      !(red >= 255 || green >= 255 || blue >= 255)
+    ) {
+      red += steps;
+      blue += steps;
+      green += steps;
+
+      section[0].style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+      section[1].style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+    }
+  } else {
+    //going down
+    //500 is a acceptable position where it can start to change to gray
+    //0.07 is an acceptable to number so it will be gray when its on the viewport
+    if (
+      section[1].getBoundingClientRect().y <= 500 &&
+      !(red <= 248 || green <= 248 || blue <= 248)
+    ) {
+      red -= steps;
+      blue -= steps;
+      green -= steps;
+
+      section[0].style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+      section[1].style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+    }
+  }
+  lastScroll = currentPos <= 0 ? 0 : currentPos; //To control negative values
 });
