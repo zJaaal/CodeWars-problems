@@ -1,30 +1,30 @@
-import fetch from "node-fetch";
+import fetch from 'node-fetch';
 
 console.clear();
 
 function createFetchClient(url, init) {
   this.get = (endpoint, options) =>
-    fetch(url + endpoint, { ...init, ...options, method: "GET" });
+    fetch(url + endpoint, { ...init, ...options, method: 'GET' });
 
   this.post = (endpoint, options) =>
-    fetch(url + endpoint, { ...init, ...options, method: "POST" });
+    fetch(url + endpoint, { ...init, ...options, method: 'POST' });
 
   this.put = (endpoint, options) =>
-    fetch(url + endpoint, { ...init, ...options, method: "PUT" });
+    fetch(url + endpoint, { ...init, ...options, method: 'PUT' });
 
   this.delete = (endpoint, options) =>
-    fetch(url + endpoint, { ...init, ...options, method: "DELETE" });
+    fetch(url + endpoint, { ...init, ...options, method: 'DELETE' });
 
   return this;
 }
 
 const fetchData = new createFetchClient(
-  "https://deezerdevs-deezer.p.rapidapi.com/",
+  'https://deezerdevs-deezer.p.rapidapi.com/',
   {
     //This key doesn't exist anymore so...
     headers: {
-      "X-RapidAPI-Key": "2b94937307mshdb7bb4e210abe30p104c02jsnc6918c8ed801",
-      "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
+      'X-RapidAPI-Key': '2b94937307mshdb7bb4e210abe30p104c02jsnc6918c8ed801',
+      'X-RapidAPI-Host': 'deezerdevs-deezer.p.rapidapi.com',
     },
   }
 );
