@@ -1,6 +1,7 @@
-let possibleTypes = ['boolean', 'string', 'number', 'array'];
+console.clear();
 
 function paramsValidator(callback) {
+  let possibleTypes = ['boolean', 'string', 'number', 'array'];
   let typesArray = [];
 
   this.addParam = function (type) {
@@ -51,7 +52,7 @@ const sumWithValidation = new paramsValidator(sumWithoutValidation)
   .addParam('number')
   .create();
 
-console.log(sumWithValidation(2, 2, 4, 5, 6, 7, 8, 9, 10, 4));
+console.log(sumWithValidation(2, 3, 4, 5, 6, 7, 8, 9, 10, 4));
 console.log(
   new paramsValidator((lol) => lol).addParam('string').create()('hello World')
 );
