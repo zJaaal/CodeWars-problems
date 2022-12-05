@@ -1,9 +1,7 @@
 function countHours(year, holidays) {
   return holidays.reduce((count, day) => {
     let weekDay = new Date(day + '/' + year).getDay();
-    if (day != '12/31' && weekDay > 0 && weekDay < 6) count += 2;
-    if (day == '12/31' && year % 4 == 0 && weekDay == 4) count += 2;
-    return count;
+    return weekDay > 0 && weekDay < 6 ? (count += 2) : count;
   }, 0);
 }
 

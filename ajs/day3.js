@@ -1,18 +1,18 @@
-let distributeGifts = (packOfGifts, reindeers) => {
-  let maxLength =
-    packOfGifts.length > reindeers.length
-      ? packOfGifts.length
-      : reindeers.length;
+function distributeGifts(packOfGifts, reindeers) {
+  let maxLengthArray =
+    packOfGifts.length > reindeers.length ? packOfGifts : reindeers;
 
-  let giftWeight = 0;
-  let reindeersCapacity = 0;
+  let result = maxLengthArray.reduce(
+    (acc, curr, i) => {
+      if (packOfGifts[i]) acc[0] += packOfGifts[i].length;
+      if (reindeers[i]) acc[1] += reindeers[i].length * 2;
+      return acc;
+    },
+    [0, 0]
+  );
 
-  for (let i = 0; i < maxLength; i++) {
-    if (packOfGifts[i]) giftWeight += packOfGifts[i].length;
-    if (reindeers[i]) reindeersCapacity += reindeers[i].length * 2;
-  }
-  return (reindeersCapacity / giftWeight) >> 0;
-};
+  return (result[1] / result[0]) >> 0;
+}
 
 console.log(
   distributeGifts(
