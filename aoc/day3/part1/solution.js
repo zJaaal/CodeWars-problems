@@ -14,9 +14,11 @@ console.clear();
 function solution(input) {
   let inputArray = input.split('\n');
   let alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
   inputArray = inputArray.reduce((result, item) => {
     let firstHalf = item.slice(0, item.length / 2);
     let secondHalf = item.slice(item.length / 2);
+
     for (let i = 0; i < firstHalf.length; i++) {
       let regex = new RegExp(firstHalf[i]);
 
