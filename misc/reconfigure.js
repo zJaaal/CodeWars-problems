@@ -5,15 +5,14 @@ function canReconfigure(from, to) {
 
   let fromArray = from.split('');
 
-  for (let i = 0; i < fromArray.length; i++) {
-    let char = fromArray[i];
-    if (!hashMap[char] && !hashMap[to[i]]) {
-      hashMap[char] = to[i];
-      hashMap[to[i]] = char;
-    }
-    if (hashMap[char] != to[i]) return false;
-  }
-  return true;
+  return fromArray.every(
+    (char, i, result) => (
+      (result = !hashMap[char] && !hashMap[to[i]]),
+      result && (hashMap[char] = to[i]),
+      result && (hashMap[to[i]] = char),
+      hashMap[char] == to[i]
+    )
+  );
 }
 
 const from = 'CON';
