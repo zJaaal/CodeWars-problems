@@ -1,11 +1,11 @@
 var abort = false;
 
-function genColor() {
+function genColors() {
   let letters = ['A', 'B', 'C', 'D', 'E', 'F'];
 
   let numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-  let result = [];
+  let result = [''];
 
   for (let i = 0; i < 3; i++) {
     let currentValue = '';
@@ -20,31 +20,42 @@ function genColor() {
         currentValue +=
           numbers[Math.floor(Math.random() * (numbers.length - 1))];
     }
-    result.push(currentValue);
+    result[0] += currentValue;
   }
 
-  return result.join('');
+  result.push(
+    result[0].split('').reverse().join(''),
+    result[0].split('').sort().join('')
+  );
+
+  return result;
 }
 
-let intervalId = setInterval(() => {
+var myInterval = setInterval(() => {
   let teams = {
     red: 'FF0000',
-    blue: '00FFEE',
+    blue: '0011FF',
   };
   let colors = ['red', 'blue'];
   let input = document.querySelector('.input>input');
-  if (!input || abort) {
-    clearInterval(intervalId);
+  if (abort || !input) {
+    clearInterval(myInterval);
     console.log('Successfully aborted');
   }
   let button = document.querySelector('.input>button');
 
+  input.value = `/avatar ${String(Math.floor(Math.random() * 99)).padStart(
+    2,
+    '0'
+  )}`;
+  button.click();
+
   colors.forEach((team) => {
-    let color = genColor();
+    let color = genColors();
     input.value = '';
-    input.value = `\/colors ${team} 90 ${
+    input.value = `\/colors ${team} ${team == 'blue' ? -45 : 45} ${
       team == 'blue' ? teams.blue : teams.red
-    } ${color}`;
+    } ${color.join(' ')}`;
     button.click();
   });
-}, 500);
+}, 1000);
