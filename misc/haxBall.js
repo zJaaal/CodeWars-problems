@@ -45,7 +45,6 @@ let intervalId = setInterval(() => {
     input.value = `\/colors ${team} 90 ${
       team == 'blue' ? teams.blue : teams.red
     } ${color}`;
-    console.log(input.value);
     button.click();
   });
 }, 500);
