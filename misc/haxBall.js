@@ -20,8 +20,8 @@ function genColors() {
   }
 
   result.push(
-    result[0].split('').reverse().join(''),
-    result[0].split('').sort().join('')
+    result[0].split('').sort().join(''),
+    result[0].split('').reverse().join('')
   );
 
   return result;
