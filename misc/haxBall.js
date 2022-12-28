@@ -3,8 +3,6 @@ var abort = false;
 function genColors() {
   let letters = ['A', 'B', 'C', 'D', 'E', 'F'];
 
-  let numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-
   let result = [''];
 
   for (let i = 0; i < 3; i++) {
@@ -16,9 +14,7 @@ function genColors() {
       if (flag > 0.5)
         currentValue +=
           letters[Math.floor(Math.random() * (letters.length - 1))];
-      else
-        currentValue +=
-          numbers[Math.floor(Math.random() * (numbers.length - 1))];
+      else currentValue += String(Math.floor(Math.random() * 9));
     }
     result[0] += currentValue;
   }
