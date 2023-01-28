@@ -1,8 +1,8 @@
 function pathFinder(maze) {
   if (maze.length == 1) return 0;
 
-  let calculateDistance = (node, end) =>
-    Math.sqrt((node.x - end.x) ** 2 + (node.y - end.y) ** 2);
+  let calculateDistance = (next, end) =>
+    Math.sqrt((next.x - end.x) ** 2 + (next.y - end.y) ** 2);
 
   let steps = [
     [-1, 0], //up
@@ -10,56 +10,59 @@ function pathFinder(maze) {
     [0, 1], //right
     [0, -1], // left
   ];
-  let heightMap = maze.split(/\n+\s/).map((x) => x.split(''));
+  let mazeMap = maze.split(/\n+\s/).map((x) => x.split(''));
 
-  heightMap = heightMap
-    .map((row, y) => {
-      return row.map((value, x) => {
-        let node = {
-          x,
-          y,
-          value,
-          neighbors: [],
-          gScore: 0,
-          fScore: Infinity,
-        };
-        return node;
-      });
-    })
-    .map((row, _, heightMap) => {
-      return row.map((node) => {
-        steps.forEach((point) => {
-          if (
-            node.y + point[0] >= 0 &&
-            node.y + point[0] <= heightMap.length - 1 &&
-            node.x + point[1] >= 0 &&
-            node.x + point[1] <= heightMap.length - 1
-          ) {
-            let neighbor = heightMap[node.y + point[0]][node.x + point[1]];
-            if (neighbor) node.neighbors.push(neighbor);
-          }
-        });
-        return node;
-      });
-    });
-  let start = heightMap[0][0];
-  let end = heightMap[heightMap.length - 1][heightMap.length - 1];
+  let hashMap = {
+    '0-0': {
+      x: 0,
+      y: 0,
+      value: '.',
+      gScore: 0,
+      fScore: Infinity,
+    },
+    [`${mazeMap.length - 1}-${mazeMap.length - 1}`]: {
+      x: mazeMap.length - 1,
+      y: mazeMap.length - 1,
+      value: mazeMap[mazeMap.length - 1][mazeMap.length - 1],
+      gScore: 0,
+      fScore: Infinity,
+    },
+  };
+  let start = hashMap[`0-0`];
+  let end = hashMap[`${mazeMap.length - 1}-${mazeMap.length - 1}`];
 
   let open = [start];
 
   while (open.length) {
     let next = open.sort((x, y) => y.fScore - x.fScore).pop();
-    next.neighbors.forEach((neighbor) => {
-      if (neighbor.value !== 'W') {
-        let newGScore = next.gScore + 1;
 
-        if (newGScore < neighbor.gScore || neighbor.gScore == 0) {
-          neighbor.gScore = newGScore;
-          neighbor.fScore = newGScore + calculateDistance(next, end);
-          if (
-            !open.find((node) => node.x == neighbor.x && node.y == neighbor.y)
-          )
-            open.push(neighbor);
+    steps.forEach((point) => {
+      if (
+        next.y + point[0] >= 0 &&
+        next.y + point[0] <= mazeMap.length - 1 &&
+        next.x + point[1] >= 0 &&
+        next.x + point[1] <= mazeMap.length - 1
+      ) {
+        hashMap[`${next.y + point[0]}-${next.x + point[1]}`] ??
+          (hashMap[`${next.y + point[0]}-${next.x + point[1]}`] = {
+            y: next.y + point[0],
+            x: next.x + point[1],
+            value: mazeMap[next.y + point[0]][next.x + point[1]],
+            gScore: 0,
+            fScore: Infinity,
+          });
+        let neighbor = hashMap[`${next.y + point[0]}-${next.x + point[1]}`];
+        if (neighbor.value !== 'W') {
+          let newGScore = next.gScore + 1;
+
+          if (newGScore < neighbor.gScore || neighbor.gScore == 0) {
+            neighbor.gScore = newGScore;
+            neighbor.fScore = newGScore + calculateDistance(next, end);
+            if (
+              !open.find((node) => node.x == neighbor.x && node.y == neighbor.y)
+            )
+              open.push(neighbor);
+          }
         }
       }
     });
