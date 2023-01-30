@@ -36,7 +36,7 @@ function pathFinder(maze) {
   while (open.length) {
     let next = open.sort((x, y) => y.fScore - x.fScore).pop();
 
-    steps.forEach((point) => {
+    for (let point of steps) {
       if (
         next.y + point[0] >= 0 &&
         next.y + point[0] <= mazeMap.length - 1 &&
@@ -51,8 +51,11 @@ function pathFinder(maze) {
             gScore: 0,
             fScore: Infinity,
           });
+
         let neighbor = hashMap[`${next.y + point[0]}-${next.x + point[1]}`];
+
         if (neighbor.value !== 'W') {
+          if (neighbor.y == end.y && neighbor.x == end.x) return true;
           let newGScore = next.gScore + 1;
 
           if (newGScore < neighbor.gScore || neighbor.gScore == 0) {
@@ -65,10 +68,10 @@ function pathFinder(maze) {
           }
         }
       }
-    });
+    }
   }
 
-  return end.gScore || false;
+  return false;
 }
 
 const testMaze = (solution, maze) => {
