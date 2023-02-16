@@ -1,8 +1,19 @@
-let c = "";
+let c = '';
 
-window.addEventListener("keypress", (e) => {
+window.addEventListener('keypress', (e) => {
   c += String.fromCharCode(e.which);
   console.log(c);
 });
 
-setInterval(() => (c = ""), 3000);
+let a = setInterval(() => {
+  console.log('Write some expressions. You have 10 seconds');
+
+  if (c.length) {
+    try {
+      console.log('result: ' + eval(c));
+    } catch (error) {
+      console.log('?');
+    }
+  }
+  c = '';
+}, 10000);
