@@ -103,7 +103,7 @@ class Thing {
             };
             return _thingInstance;
           }
-          return target.isAData[thing];
+          return !!target.isAData[thing];
         }
 
         if (prop.includes('is_not_a')) {
@@ -224,24 +224,42 @@ class Thing {
 
 const car = new Thing('Mercedes');
 
-console.log(car.name);
-console.log(car.is_a.mercedes);
-console.log(car.is_a_mercedes);
-console.log(car.is_not_a_mercedes);
-console.log(car.is_a_ferrari);
-console.log(car.is_a.ferrari);
-console.log(car.is_a_ferrari);
+console.log('name: ', car.name);
+
+console.log('Set Car Brand');
+car.is_a.mercedes;
+
+console.log('Is it Mercedes?', car.is_a_mercedes);
+console.log('Is it not a Mercedes?', car.is_not_a_mercedes);
+console.log('Is it Ferrari?', car.is_a_ferrari);
+
+console.log('Setting the wheels, rubber tyres and engine horsepower');
+
 car.has(4).wheels;
+car.wheels.each(() =>
+  having(4).rubber_tyres.each(() => being_the.hardness.medium)
+);
+car.has(1).engine.being_the.horsepower.HP1070;
 
-car.wheels.each(() => having(4).rubber_tyres);
+console.log('Engine Horsepower: ', car.engine.horsepower);
 
-// console.log(car.wheels[0]);
+console.log(
+  'Wheels rubber tyres hardness: ',
+  car.wheels[0].rubber_tyres[0].hardness
+);
+
+console.log("Setting the rival of the car to 'Ferrari'");
+
 car.is_the.rival_of.ferrari;
-console.log(car.rival_of);
-car.wheels[0].rubber_tyres[0].being_the.color.white.and_the.size.xl;
+console.log('Mercedes rival: ', car.rival_of);
 
-car.wheels.each(() => being_the.color.white.and_the.size.xl);
-console.log(car.wheels[0].color, car.wheels[0].size);
+car.wheels.each(() => being_the.color.black.and_the.size.f1_size);
+console.log(
+  'Car wheels color and size: ',
+  car.wheels[0].color,
+  car.wheels[0].size
+);
+
 car.can.drift((corner) => `${name} drifts round ${corner}`);
 console.log(car.drift('Monaco'));
 car.can.vroom(
