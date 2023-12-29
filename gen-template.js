@@ -1,5 +1,4 @@
-//www.codewars.com/api/v1/code-challenges/526de57c8f428fc1fd000b8c
-import fs, { appendFile } from 'fs';
+import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
