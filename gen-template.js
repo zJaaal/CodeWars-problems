@@ -14,7 +14,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 if (!kataID || !kataName) {
-    console.log('Please provide kata ID and kata name');
+    console.log('Please provide kata ID and kata name as arguments');
     process.exit(1);
 }
 
