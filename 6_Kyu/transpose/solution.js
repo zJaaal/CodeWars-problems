@@ -1,3 +1,5 @@
+//https://www.codewars.com/kata/52fba2a9adcd10b34300094c
+
 function transpose(matrix) {
   let result = Array.from({ length: matrix[0].length }, (x) =>
     Array.from({ length: matrix.length }, (x) => 0)
@@ -10,10 +12,3 @@ function transpose(matrix) {
   });
   return result;
 }
-
-console.log(
-  transpose([
-    [1, 2, 3],
-    [4, 5, 6],
-  ])
-);

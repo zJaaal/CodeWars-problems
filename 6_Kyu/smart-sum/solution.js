@@ -1,3 +1,5 @@
+//https://www.codewars.com/kata/5831200eb812b8016d000094
+
 function smartSum() {
   let sum = 0;
   let argsArray = [...arguments].flat();
@@ -10,5 +12,3 @@ function smartSum() {
   }
   return sum;
 }
-
-console.log(smartSum(1, [2, 3], 4, [[5], [6, 7]], 8));

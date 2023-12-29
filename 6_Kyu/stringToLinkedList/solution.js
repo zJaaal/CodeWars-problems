@@ -1,3 +1,5 @@
+//https://www.codewars.com/kata/582c5382f000e535100001a7
+
 function parse(string) {
   let data = string.split('->').map((x) => +x.trim());
 
