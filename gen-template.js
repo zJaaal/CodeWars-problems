@@ -28,25 +28,23 @@ fetch(API_URL)
 
     fs.mkdir(newDir, { recursive: true }, (err) => {
       if (err) throw err;
-    });
 
-    let descriptionFile = path.join(newDir, 'README.md');
+      let descriptionFile = path.join(newDir, 'README.md');
 
-    let solutionFile = path.join(newDir, 'solution.js');
+      let solutionFile = path.join(newDir, 'solution.js');
 
-    fs.writeFile(`${descriptionFile}`, description, (err) => {
-      if (err) throw err;
-      console.log('Description file has been created');
-    });
-
-    console.log(url);
-
-    fs.writeFile(
-      `${solutionFile}`,
-      `//${url}\n\n\n // Write your solution here`,
-      (err) => {
+      fs.writeFile(`${descriptionFile}`, description, (err) => {
         if (err) throw err;
-        console.log('Solution file has been created');
-      }
-    );
+        console.log('Description file has been created');
+      });
+
+      fs.writeFile(
+        `${solutionFile}`,
+        `//${url}\n\n\n // Write your solution here`,
+        (err) => {
+          if (err) throw err;
+          console.log('Solution file has been created');
+        }
+      );
+    });
   });
