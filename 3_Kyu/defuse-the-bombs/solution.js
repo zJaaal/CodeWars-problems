@@ -14,29 +14,28 @@ Bomb.diffuse(3.14159);
 let date = Date.now() - 31622400000 - 3 * 31536000000;
 Bomb.diffuse(date);
 let code = {
-  key: 43,
+    key: 43
 };
 
 Object.freeze(code);
 Bomb.diffuse(code);
 
 var obj = function () {
-  var flag = false;
+    var flag = false;
 
-  this.valueOf = function () {
-    if (flag) {
-      return 11;
-    }
+    this.valueOf = function () {
+        if (flag) {
+            return 11;
+        }
 
-    flag = true;
-    return 9;
-  };
+        flag = true;
+        return 9;
+    };
 };
 
 Bomb.diffuse(new obj());
 var y = 2;
-Math.random = () =>
-  y == 2 ? (y = 0.5 / 2) : y == 0.25 ? (y = 2 / 0.5) : y / 8;
+Math.random = () => (y == 2 ? (y = 0.5 / 2) : y == 0.25 ? (y = 2 / 0.5) : y / 8);
 Array.prototype.valueOf = () => 14;
 Bomb.diffuse(42);
 Bomb.diffuse('eWVz');

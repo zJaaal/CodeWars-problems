@@ -52,11 +52,11 @@ sumIntervals( [
 
 Your algorithm should be able to handle large intervals. All tested intervals are subsets of the range `[-1000000000, 1000000000]`.
 
-~~~if:lambdacalc
+```if:lambdacalc
 ### Encodings
 
-purity: `LetRec`  
-numEncoding: `ScottBinary` ( subsets are actually in range `[0, 2000]` )  
-export constructor `Pair` for your `Pair` encoding  
-export constructors `nil, cons` for your `List` encoding  
-~~~
+purity: `LetRec`
+numEncoding: `ScottBinary` ( subsets are actually in range `[0, 2000]` )
+export constructor `Pair` for your `Pair` encoding
+export constructors `nil, cons` for your `List` encoding
+```

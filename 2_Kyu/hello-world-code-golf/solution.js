@@ -3,8 +3,8 @@
 // This code needs to be not formatted to work.
 
 (0)[
-  (c =
-    '\
+    (c =
+        '\
   c\
   o\
   n\

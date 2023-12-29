@@ -13,6 +13,6 @@ Write a function that takes a string of parentheses, and determines if the order
 
 `0 <= input.length <= 100`
 
-~~~if-not:javascript,go,cobol
+```if-not:javascript,go,cobol
 Along with opening (`(`) and closing (`)`) parenthesis, input may contain any valid ASCII characters.  Furthermore, the input string may be empty and/or not contain any parentheses at all.  Do **not** treat other forms of brackets as parentheses (e.g. `[]`, `{}`, `<>`).
-~~~
+```

@@ -10,7 +10,6 @@ Implement the function which takes an array containing the names of people that 
 ["Alex", "Jacob", "Mark", "Max"]  -->  "Alex, Jacob and 2 others like this"
 ```
 
-
 ```if:c
 * return must be an allocated string
 * do not mutate input

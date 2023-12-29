@@ -3,6 +3,7 @@ The rgb function is incomplete. Complete it so that passing in RGB decimal value
 Note: Your answer should always be 6 characters long, the shorthand with 3 will not work here.
 
 ### Examples (input --> output):
+
 ```
 255, 255, 255 --> "FFFFFF"
 255, 255, 300 --> "FFFFFF"

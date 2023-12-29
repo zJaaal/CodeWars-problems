@@ -4,221 +4,219 @@
 // Not sure if I'm proud or ashamed of this one. I'm leaning towards proud.
 
 class Thing {
-  name;
+    name;
 
-  isAData = {};
+    isAData = {};
 
-  shouldSetIsAData = null;
+    shouldSetIsAData = null;
 
-  shouldSetIsThe = false;
+    shouldSetIsThe = false;
 
-  isTheProp = null;
+    isTheProp = null;
 
-  shouldSetHa$data = null;
+    shouldSetHa$data = null;
 
-  shouldSetCanFunction = false;
+    shouldSetCanFunction = false;
 
-  data = {};
+    data = {};
 
-  accessedProp = '';
+    accessedProp = '';
 
-  constructor(name, pluralName) {
-    this.name = name;
-    this.pluralName = pluralName;
+    constructor(name, pluralName) {
+        this.name = name;
+        this.pluralName = pluralName;
 
-    let _thingInstance = new Proxy(this, {
-      get(target, prop) {
-        target.accessedProp = [
-          'is_a',
-          'is_not_a',
-          'has',
-          'having',
-          'each',
-          'accessedProp',
-          'is_the',
-        ].includes(prop)
-          ? target.accessedProp
-          : prop;
+        let _thingInstance = new Proxy(this, {
+            get(target, prop) {
+                target.accessedProp = [
+                    'is_a',
+                    'is_not_a',
+                    'has',
+                    'having',
+                    'each',
+                    'accessedProp',
+                    'is_the'
+                ].includes(prop)
+                    ? target.accessedProp
+                    : prop;
 
-        if (target.shouldSetIsAData) {
-          target.isAData[prop] = target.shouldSetIsAData.is;
-          target.shouldSetIsAData = null;
-        }
-
-        if (target.shouldSetHa$data) {
-          target[prop] =
-            target.shouldSetHa$data.amount > 1
-              ? Array.from(
-                  { length: target.shouldSetHa$data.amount },
-                  () => new Thing(prop.slice(0, -1), prop)
-                )
-              : new Thing(prop);
-          target.shouldSetHa$data = null;
-        }
-
-        if (target.shouldSetIsThe) {
-          target.shouldSetIsThe = false;
-          target.isTheProp = prop;
-
-          return _thingInstance;
-        }
-
-        if (target.shouldSetCanFunction) {
-          target.shouldSetCanFunction = false;
-
-          target[prop] = function (...args) {
-            globalThis.name = target.name;
-            let fnName;
-            let callback;
-
-            if (args.length == 1) callback = args[0];
-            else {
-              [fnName, callback] = args;
-              target[fnName] = [];
-            }
-
-            target[prop] = (...args) => {
-              let result = callback(...args);
-              target[fnName]?.push(result);
-
-              return result;
-            };
-          };
-
-          return target[prop];
-        }
-
-        if (target.isTheProp) {
-          target[target.isTheProp] = prop;
-          target.isTheProp = null;
-
-          return _thingInstance;
-        }
-
-        if (prop.includes('is_a')) {
-          let [is, a, thing] = prop.split('_');
-
-          if (!thing) {
-            target.shouldSetIsAData = {
-              is: true,
-            };
-            return _thingInstance;
-          }
-          return !!target.isAData[thing];
-        }
-
-        if (prop.includes('is_not_a')) {
-          let [is, not, a, thing] = prop.split('_');
-
-          if (!thing) {
-            target.shouldSetIsAData = {
-              is: false,
-            };
-            return _thingInstance;
-          }
-          return !target.isAData[thing];
-        }
-
-        if (prop.includes('has') || prop.includes('having')) {
-          return function (amount) {
-            target.shouldSetHa$data = {
-              amount,
-            };
-
-            return _thingInstance;
-          };
-        }
-
-        if (prop.includes('can')) {
-          target.shouldSetCanFunction = true;
-
-          return _thingInstance;
-        }
-
-        if (
-          prop.includes('is_the') ||
-          prop.includes('being_the') ||
-          prop.includes('and_the')
-        ) {
-          target.shouldSetIsThe = true;
-
-          return _thingInstance;
-        }
-
-        return target[prop];
-      },
-    });
-
-    globalThis.having = _thingInstance.having;
-
-    Array.prototype.each = function (callback) {
-      Object.assign(
-        this,
-        this.map((element, i) => {
-          globalThis.being_the = new Proxy(
-            {
-              new: true,
-              shouldSetData: true,
-              setProp: '',
-            },
-            {
-              get(target, prop, proxy) {
-                if (prop == 'and_the') {
-                  target.shouldSetData = true;
-                  return proxy;
+                if (target.shouldSetIsAData) {
+                    target.isAData[prop] = target.shouldSetIsAData.is;
+                    target.shouldSetIsAData = null;
                 }
 
-                if (target.shouldSetData) {
-                  target.shouldSetData = false;
-                  target.setProp = prop;
-                  return proxy;
-                } else if (target.setProp.length) {
-                  target[target.setProp] = prop;
-                  target.setProp = '';
+                if (target.shouldSetHa$data) {
+                    target[prop] =
+                        target.shouldSetHa$data.amount > 1
+                            ? Array.from(
+                                  { length: target.shouldSetHa$data.amount },
+                                  () => new Thing(prop.slice(0, -1), prop)
+                              )
+                            : new Thing(prop);
+                    target.shouldSetHa$data = null;
+                }
 
-                  return proxy;
+                if (target.shouldSetIsThe) {
+                    target.shouldSetIsThe = false;
+                    target.isTheProp = prop;
+
+                    return _thingInstance;
+                }
+
+                if (target.shouldSetCanFunction) {
+                    target.shouldSetCanFunction = false;
+
+                    target[prop] = function (...args) {
+                        globalThis.name = target.name;
+                        let fnName;
+                        let callback;
+
+                        if (args.length == 1) callback = args[0];
+                        else {
+                            [fnName, callback] = args;
+                            target[fnName] = [];
+                        }
+
+                        target[prop] = (...args) => {
+                            let result = callback(...args);
+                            target[fnName]?.push(result);
+
+                            return result;
+                        };
+                    };
+
+                    return target[prop];
+                }
+
+                if (target.isTheProp) {
+                    target[target.isTheProp] = prop;
+                    target.isTheProp = null;
+
+                    return _thingInstance;
+                }
+
+                if (prop.includes('is_a')) {
+                    let [is, a, thing] = prop.split('_');
+
+                    if (!thing) {
+                        target.shouldSetIsAData = {
+                            is: true
+                        };
+                        return _thingInstance;
+                    }
+                    return !!target.isAData[thing];
+                }
+
+                if (prop.includes('is_not_a')) {
+                    let [is, not, a, thing] = prop.split('_');
+
+                    if (!thing) {
+                        target.shouldSetIsAData = {
+                            is: false
+                        };
+                        return _thingInstance;
+                    }
+                    return !target.isAData[thing];
+                }
+
+                if (prop.includes('has') || prop.includes('having')) {
+                    return function (amount) {
+                        target.shouldSetHa$data = {
+                            amount
+                        };
+
+                        return _thingInstance;
+                    };
+                }
+
+                if (prop.includes('can')) {
+                    target.shouldSetCanFunction = true;
+
+                    return _thingInstance;
+                }
+
+                if (
+                    prop.includes('is_the') ||
+                    prop.includes('being_the') ||
+                    prop.includes('and_the')
+                ) {
+                    target.shouldSetIsThe = true;
+
+                    return _thingInstance;
                 }
 
                 return target[prop];
-              },
             }
-          );
+        });
 
-          let thing = callback();
+        globalThis.having = _thingInstance.having;
 
-          if (thing.new) {
-            let thingValues = Object.keys(thing)
-              .filter(
-                (key) => ['new', 'shouldSetData', 'setProp'].indexOf(key) == -1
-              )
-              .reduce((acc, key) => {
-                acc[key] = thing[key];
-                return acc;
-              }, {});
+        Array.prototype.each = function (callback) {
+            Object.assign(
+                this,
+                this.map((element, i) => {
+                    globalThis.being_the = new Proxy(
+                        {
+                            new: true,
+                            shouldSetData: true,
+                            setProp: ''
+                        },
+                        {
+                            get(target, prop, proxy) {
+                                if (prop == 'and_the') {
+                                    target.shouldSetData = true;
+                                    return proxy;
+                                }
 
-            return {
-              ...element,
-              ...thingValues,
-            };
-          }
+                                if (target.shouldSetData) {
+                                    target.shouldSetData = false;
+                                    target.setProp = prop;
+                                    return proxy;
+                                } else if (target.setProp.length) {
+                                    target[target.setProp] = prop;
+                                    target.setProp = '';
 
-          if (Array.isArray(thing)) {
-            return {
-              ...element,
-              [thing[0].pluralName]: [...thing],
-            };
-          } else {
-            return {
-              ...element,
-              [thing.name]: thing,
-            };
-          }
-        })
-      );
+                                    return proxy;
+                                }
 
-      return this;
-    };
+                                return target[prop];
+                            }
+                        }
+                    );
 
-    return _thingInstance;
-  }
+                    let thing = callback();
+
+                    if (thing.new) {
+                        let thingValues = Object.keys(thing)
+                            .filter((key) => ['new', 'shouldSetData', 'setProp'].indexOf(key) == -1)
+                            .reduce((acc, key) => {
+                                acc[key] = thing[key];
+                                return acc;
+                            }, {});
+
+                        return {
+                            ...element,
+                            ...thingValues
+                        };
+                    }
+
+                    if (Array.isArray(thing)) {
+                        return {
+                            ...element,
+                            [thing[0].pluralName]: [...thing]
+                        };
+                    } else {
+                        return {
+                            ...element,
+                            [thing.name]: thing
+                        };
+                    }
+                })
+            );
+
+            return this;
+        };
+
+        return _thingInstance;
+    }
 }

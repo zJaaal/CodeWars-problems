@@ -14,18 +14,18 @@ input = ["red", "red", "red", "red", "red", "red"]
 result = 3 (3 red pairs)
 ```
 
-~~~if:lambdacalc
+```if:lambdacalc
 ### Encodings
 
-purity: `LetRec`  
-numEncoding: `Church`  
-export constructors `nil, cons` for your `List` encoding  
+purity: `LetRec`
+numEncoding: `Church`
+export constructors `nil, cons` for your `List` encoding
 
 ### `Preloaded`
 
-datatypes `Colour` and `Ordering` ( both in Scott encoding ) and  
-`compare : Colour -> Colour -> Ordering` are exported from `Preloaded`  
-`compare` is used as `compare colour1 colour2 (colour1<colour2) (colour1==colour2) (colour1>colour2)`  
-eg. `le` may be derived as `\ colour1 colour2 . compare colour1 colour2 True True False`  
-full disclosure: for technical reasons, combinators `T, Y` are also exported from `Preloaded`  
-~~~
+datatypes `Colour` and `Ordering` ( both in Scott encoding ) and
+`compare : Colour -> Colour -> Ordering` are exported from `Preloaded`
+`compare` is used as `compare colour1 colour2 (colour1<colour2) (colour1==colour2) (colour1>colour2)`
+eg. `le` may be derived as `\ colour1 colour2 . compare colour1 colour2 True True False`
+full disclosure: for technical reasons, combinators `T, Y` are also exported from `Preloaded`
+```

@@ -4,11 +4,12 @@ Refusing to surrender to the enemy, they instead opted for mass suicide, with a 
 
 Well, Josephus and another man were the last two and, as we now know every detail of the story, you may have correctly guessed that they didn't exactly follow through the original idea.
 
-You are now to create a function that returns a Josephus permutation, taking as parameters the initial *array/list of items* to be permuted as if they were in a circle and counted out every *k* places until none remained.
+You are now to create a function that returns a Josephus permutation, taking as parameters the initial _array/list of items_ to be permuted as if they were in a circle and counted out every _k_ places until none remained.
 
 **Tips and notes:** it helps to start counting from 1 up to n, instead of the usual range 0 to n-1; k will always be >=1.
 
 For example, with an array=`[1,2,3,4,5,6,7]` and k=3, the function should act this way.
+
 ```
 [1,2,3,4,5,6,7] - initial sequence
 [1,2,4,5,6,7] => 3 is counted out and goes into the result [3]
@@ -19,10 +20,13 @@ For example, with an array=`[1,2,3,4,5,6,7]` and k=3, the function should act th
 [4] => 1 is counted out and goes into the result [3,6,2,7,5,1]
 [] => 4 is counted out and goes into the result [3,6,2,7,5,1,4]
 ```
+
 So our final result is:
+
 ```
 [3,6,2,7,5,1,4]
 ```
+
 For more info, browse the <a href="http://en.wikipedia.org/wiki/Josephus_problem" target="_blank">Josephus Permutation</a> page on wikipedia; related kata: <a href="http://www.codewars.com/kata/josephus-survivor" target="_blank" title="Josephus sequence - last element">Josephus Survivor</a>.
 
 Also, [live game demo](https://iguacel.github.io/josephus/) by [OmniZoetrope](https://www.codewars.com/users/OmniZoetrope).

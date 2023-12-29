@@ -18,15 +18,19 @@ Cells that would born out of the array boundaries should be ignored (universe ne
 ```javascript
 console.log(htmlize(cells));
 ```
+
 ```python
 print htmlize(cells)
 ```
+
 ```ruby
 puts htmlize(cells)
 ```
+
 ```php
 echo htmlize($cells) . "\r\n";
 ```
+
 ```julia
 print(htmlize(cells))
 ```

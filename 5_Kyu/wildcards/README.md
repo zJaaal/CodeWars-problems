@@ -2,8 +2,8 @@ You are given a string containing 0's, 1's and one or more '?', where `?` is a w
 
 Return an array containing all the possibilities you can reach substituing the `?` for a value.
 
-
 ## Examples
+
 ```
 '101?' -> ['1010', '1011']
 
@@ -11,7 +11,8 @@ Return an array containing all the possibilities you can reach substituing the `
 ```
 
 Notes:
-* Don't worry about sorting the output.
-* Your string will never be empty.
+
+-   Don't worry about sorting the output.
+-   Your string will never be empty.
 
 Have fun!
