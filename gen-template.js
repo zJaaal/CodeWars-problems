@@ -39,7 +39,7 @@ fetch(API_URL)
 
             fs.writeFile(`${solutionFile}`, `//${url}\n\n\n // Write your solution here`, (err) => {
                 if (err) throw err;
-                console.log('Solution file has been created');
+                console.log('Solution file has been created at', `${rankName}/${kataName}`);
             });
         });
     });
